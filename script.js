@@ -35,15 +35,19 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Navbar background on scroll
+// Navbar background on scroll with transparency
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(15, 23, 42, 0.98)';
-        navbar.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.2)';
+        navbar.style.background = 'rgba(15, 23, 42, 0.85)';
+        navbar.style.backdropFilter = 'blur(20px)';
+        navbar.style.webkitBackdropFilter = 'blur(20px)';
+        navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.4)';
     } else {
-        navbar.style.background = 'rgba(15, 23, 42, 0.95)';
-        navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        navbar.style.background = 'rgba(15, 23, 42, 0.7)';
+        navbar.style.backdropFilter = 'blur(16px)';
+        navbar.style.webkitBackdropFilter = 'blur(16px)';
+        navbar.style.boxShadow = '0 4px 24px rgba(0, 0, 0, 0.3)';
     }
 });
 
@@ -111,7 +115,7 @@ if (statsSection) {
     statsObserver.observe(statsSection);
 }
 
-// Skill tags hover effect
+// Skill tags hover effect with rotation
 document.querySelectorAll('.skill-tag').forEach(tag => {
     tag.addEventListener('mouseenter', function() {
         this.style.transform = 'scale(1.1) rotate(2deg)';
@@ -250,6 +254,22 @@ document.querySelectorAll('.contact-card').forEach(card => {
     contactObserver.observe(card);
 });
 
+// Enhanced glassmorphism effect on scroll
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+
+            // Add subtle background animation based on scroll
+            document.body.style.backgroundPosition = `center ${scrolled * 0.5}px`;
+
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
+
 // Smooth page load
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
@@ -259,4 +279,14 @@ window.addEventListener('load', () => {
     }, 100);
 });
 
-console.log('Portfolio loaded successfully! 🚀');
+// Add glow effect to cards on mouse move
+document.querySelectorAll('.project-card, .skill-category, .contact-card, .stat-card').forEach(card => {
+    card.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        this.style.setProperty('--mouse-x', `${x}px`);
+        this.style.setProperty('--mouse-y', `${y}px`);
+    });
+});
