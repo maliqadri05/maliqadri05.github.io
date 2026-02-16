@@ -675,7 +675,7 @@
                   <i class="fas fa-envelope"></i>
                 </div>
                 <h3>Email</h3>
-                <a href="mailto:maliqadri05@gmail.com" class="contact-link">maliqadri05@gmail.com</a>
+                <a href="mailto:aliansarimuhammadamjad@gmail.com" class="contact-link">aliansarimuhammadamjad@gmail.com</a>
               </div>
               <div class="contact-card">
                 <div class="contact-icon">
@@ -692,19 +692,19 @@
                 <a href="https://www.linkedin.com/in/muhammad-ali-qadri" target="_blank" rel="noreferrer" class="contact-link">Muhammad Ali Qadri</a>
               </div>
             </div>
-            <form class="contact-form" onsubmit="return false;">
+            <form class="contact-form" action="https://formspree.io/f/xdalzebv" method="POST">
               <h3>Quick message</h3>
               <div class="field">
                 <label for="name">Name</label>
-                <input id="name" type="text" placeholder="Your name" />
+                <input id="name" type="text" name="name" placeholder="Your name" required />
               </div>
               <div class="field">
                 <label for="email">Email</label>
-                <input id="email" type="email" placeholder="you@example.com" />
+                <input id="email" type="email" name="email" placeholder="you@example.com" required />
               </div>
               <div class="field">
                 <label for="message">Message</label>
-                <textarea id="message" rows="4" placeholder="What's on your mind?"></textarea>
+                <textarea id="message" name="message" rows="4" placeholder="What's on your mind?" required></textarea>
               </div>
               <button class="btn primary full-width" type="submit">
                 <i class="fas fa-paper-plane"></i> Send message
