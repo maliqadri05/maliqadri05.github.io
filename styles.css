@@ -948,6 +948,142 @@ img {
   font-style: italic;
 }
 
+/* =============================================
+   LEADERSHIP BOOTCAMP IMAGE
+   ============================================= */
+
+.leadership-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.leadership-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: #0b1120;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 0.7rem;
+}
+
+.leadership-evidence {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding-top: 1rem;
+  margin-top: 0.75rem;
+  border-top: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+/* Image thumbnail — same proportional role as cert-card-small */
+.bootcamp-img-wrap {
+  position: relative;
+  width: 120px;           /* slightly wider than cert because 16:9 */
+  height: 68px;           /* maintains ~16:9 ratio at this size */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  flex-shrink: 0;
+  cursor: pointer;
+  background: #0b1120;
+}
+
+.bootcamp-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;   /* crop to show presentation area, not top nav */
+  transition: transform 0.4s ease, filter 0.3s ease;
+  filter: brightness(0.82);
+}
+
+.bootcamp-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 165, 233, 0.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 0.55rem;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  padding: 4px;
+}
+
+.bootcamp-overlay i {
+  font-size: 1.1rem;
+}
+
+.bootcamp-img-wrap:hover .bootcamp-overlay {
+  opacity: 1;
+}
+
+.bootcamp-img-wrap:hover .bootcamp-img {
+  transform: scale(1.06);
+  filter: brightness(1);
+}
+
+/* GDSC chip badge on thumbnail */
+.bootcamp-chip {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(10, 10, 10, 0.75);
+  border-radius: 4px;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.bootcamp-img-wrap:hover .bootcamp-chip {
+  opacity: 0;
+}
+
+/* Caption text — same role as cert-info */
+.bootcamp-caption {
+  flex: 1;
+}
+
+.bootcamp-caption-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin: 0 0 0.15rem;
+}
+
+.bootcamp-caption-sub {
+  font-size: 0.75rem;
+  color: #7dd3fc;
+  margin: 0 0 0.15rem;
+}
+
+.bootcamp-caption-meta {
+  font-size: 0.68rem;
+  color: #6b7280;
+  margin: 0;
+  font-style: italic;
+}
+
 /* ---- Road milestone marker ---- */
 .road-milestone {
   display: flex;
