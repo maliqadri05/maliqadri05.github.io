@@ -489,764 +489,395 @@ img {
 }
 
 /* =============================================
-   ANIMATED EXPERIENCE ROADMAP
+   CHANGELOG-STYLE EXPERIENCE TIMELINE
    ============================================= */
 
-.roadmap {
+.cl-timeline {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 0 1rem;
-}
-
-/* ---- Origin node at top ---- */
-.roadmap-origin {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0;
-  z-index: 5;
-}
-
-.origin-pulse {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: rgba(56, 189, 248, 0.2);
-  animation: originPulse 2.5s infinite ease-in-out;
-}
-
-.origin-ring {
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: 2px solid rgba(56, 189, 248, 0.35);
-  animation: originRing 2.5s infinite ease-in-out 0.4s;
-}
-
-.origin-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 1.4rem;
-  color: #38bdf8;
-  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
-  animation: iconFloat 3s infinite ease-in-out;
-}
-
-@keyframes originPulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.3); opacity: 0.2; }
-}
-@keyframes originRing {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.4); opacity: 0; }
-}
-@keyframes iconFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-/* ---- Vertical road track ---- */
-.road-track {
-  position: relative;
-  width: 4px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  z-index: 2;
-}
-
-.road-line {
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, #38bdf8 0%, rgba(56,189,248,0.3) 100%);
-}
-
-.road-glow {
-  position: absolute;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(56,189,248,0.4) 0%, transparent 100%);
-  filter: blur(3px);
-  top: 0;
-}
-
-/* Particles traveling down the line */
-.road-particle {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #38bdf8;
-  box-shadow: 0 0 8px #38bdf8;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.road-particle.p1 { animation: particleTravel 2.4s linear infinite; top: -5px; }
-.road-particle.p2 { animation: particleTravel 2.4s linear infinite 0.8s; top: -5px; }
-.road-particle.p3 { animation: particleTravel 2.4s linear infinite 1.6s; top: -5px; }
-
-@keyframes particleTravel {
-  0% { top: -5px; opacity: 1; }
-  80% { opacity: 1; }
-  100% { top: calc(100% + 5px); opacity: 0; }
-}
-
-/* ---- Roadmap Stops ---- */
-.roadmap-stop {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 900px;
   gap: 0;
+  padding-left: 0;
+}
+
+/* ── Each entry row ── */
+.cl-entry {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateX(-16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
-.roadmap-stop.visible {
+.cl-entry.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
-.roadmap-stop.stop-left {
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.roadmap-stop.stop-right {
-  flex-direction: row-reverse;
-  justify-content: flex-start;
-}
-
-/* Connector between node and card */
-.stop-connector {
+/* ── Spine: dot + vertical line ── */
+.cl-spine {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  width: 40px;
+  padding-top: 6px;
 }
 
-.connector-right {
-  flex-direction: row-reverse;
-}
-
-.connector-line {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, #38bdf8, rgba(56,189,248,0.2));
+.cl-dot {
   position: relative;
-}
-
-.connector-right .connector-line {
-  background: linear-gradient(90deg, rgba(56,189,248,0.2), #38bdf8);
-}
-
-/* Node on the center line */
-.stop-node {
-  position: relative;
-  width: 48px;
-  height: 48px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 5;
+  z-index: 3;
 }
 
-.node-inner {
-  width: 42px;
-  height: 42px;
+.cl-dot-inner {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0b1120;
-  font-size: 1rem;
-  font-weight: 700;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-  z-index: 2;
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.node-inner.node-teal {
   background: linear-gradient(135deg, #06b6d4, #0891b2);
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+  position: relative;
+  z-index: 2;
 }
 
-.node-ring {
+.cl-dot-inner-cyan {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.cl-dot-ring {
   position: absolute;
-  inset: -5px;
+  inset: -4px;
   border-radius: 50%;
-  border: 2px solid rgba(56, 189, 248, 0.4);
-  animation: nodeRing 2s infinite ease-in-out;
+  border: 1.5px solid rgba(6, 182, 212, 0.4);
+  animation: clRing 2.5s infinite ease-in-out;
 }
 
-.node-ring.ring-teal {
-  border-color: rgba(6, 182, 212, 0.4);
+.cl-dot-ring-cyan {
+  border-color: rgba(56, 189, 248, 0.4);
 }
 
-.node-ping {
+.cl-dot-ping {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: rgba(56, 189, 248, 0.15);
-  animation: nodePing 2s infinite ease-out;
+  background: rgba(6, 182, 212, 0.2);
+  animation: clPing 2.5s infinite ease-out;
 }
 
-.node-ping.ping-teal {
-  background: rgba(6, 182, 212, 0.15);
+.cl-dot-ping-cyan {
+  background: rgba(56, 189, 248, 0.2);
 }
 
-@keyframes nodeRing {
+@keyframes clRing {
   0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.25); opacity: 0.2; }
+  50%       { transform: scale(1.6); opacity: 0.1; }
 }
-@keyframes nodePing {
-  0% { transform: scale(1); opacity: 0.4; }
-  100% { transform: scale(2.2); opacity: 0; }
-}
-
-.roadmap-stop:hover .node-inner {
-  transform: scale(1.1);
-  box-shadow: 0 0 32px rgba(56, 189, 248, 0.7);
+@keyframes clPing {
+  0%   { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(2.8); opacity: 0; }
 }
 
-/* ---- Stop Card ---- */
-.stop-card {
-  position: relative;
-  background: rgba(15, 23, 42, 0.92);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  border-radius: 1.25rem;
-  padding: 1.5rem 1.6rem;
-  overflow: hidden;
-  transition: all 0.35s ease;
+/* The vertical line below each dot */
+.cl-line {
+  width: 2px;
   flex: 1;
-  max-width: 380px;
+  min-height: 40px;
+  background: linear-gradient(180deg,
+    rgba(56, 189, 248, 0.45) 0%,
+    rgba(56, 189, 248, 0.08) 100%
+  );
+  margin-top: 4px;
 }
 
-.stop-card:hover {
-  border-color: rgba(56, 189, 248, 0.45);
-  box-shadow: 0 12px 40px rgba(56, 189, 248, 0.15);
-  transform: translateY(-3px);
+/* ── Cards area ── */
+.cl-cards {
+  display: flex;
+  gap: 0.85rem;
+  padding-bottom: 2.2rem;
+  flex: 1;
+  min-width: 0;
 }
 
-.stop-card-glow {
+/* Shared card base */
+.cl-card {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: 1rem;
+  padding: 1.25rem 1.3rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.cl-card:hover {
+  border-color: rgba(56, 189, 248, 0.38);
+  box-shadow: 0 8px 28px rgba(56, 189, 248, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Main info card fills remaining space */
+.cl-card-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Certificate image card — fixed width portrait */
+.cl-card-img {
+  width: 148px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0.9rem;
+}
+
+.cl-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  margin-bottom: 0.65rem;
+  cursor: pointer;
+  background: #060e1c;
+}
+
+.cl-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: brightness(0.85);
+  transition: transform 0.4s ease, filter 0.3s ease;
+  display: block;
+}
+
+.cl-img-overlay {
   position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.08), transparent 70%);
-  pointer-events: none;
+  inset: 0;
+  background: rgba(14, 165, 233, 0.80);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  opacity: 0;
   transition: opacity 0.3s ease;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 6px;
 }
 
-.stop-card-glow.glow-teal {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.08), transparent 70%);
+.cl-img-overlay i { font-size: 1.2rem; }
+
+.cl-img-wrap:hover .cl-img-overlay { opacity: 1; }
+.cl-img-wrap:hover .cl-img {
+  transform: scale(1.05);
+  filter: brightness(1);
 }
 
-.stop-card:hover .stop-card-glow {
-  opacity: 1.5;
+.cl-img-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin: 0 0 0.15rem;
+  line-height: 1.3;
 }
 
-.stop-header {
+.cl-img-sub {
+  font-size: 0.7rem;
+  color: #7dd3fc;
+  margin: 0 0 0.2rem;
+  line-height: 1.3;
+}
+
+.cl-img-meta {
+  font-size: 0.67rem;
+  color: #9ca3af;
+  margin: 0 0 0.1rem;
+}
+
+.cl-img-signed {
+  font-size: 0.62rem;
+  color: #4b5563;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Card internals */
+.cl-card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
 }
 
-.stop-badge {
+.cl-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.68rem;
+  gap: 0.3rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
   color: #0b1120;
   background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 999px;
 }
 
-.stop-badge.badge-teal {
+.cl-badge-teal {
   background: linear-gradient(135deg, #06b6d4, #0891b2);
 }
 
-.stop-dates {
-  font-size: 0.75rem;
-  color: #9ca3af;
+.cl-dates {
+  font-size: 0.72rem;
+  color: #6b7280;
   display: flex;
   align-items: center;
   gap: 0.3rem;
 }
 
-.stop-role {
-  font-size: 1.05rem;
+.cl-role {
+  font-size: 1rem;
   font-weight: 700;
   color: #e5e7eb;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.3rem;
   line-height: 1.3;
 }
 
-.stop-company {
-  font-size: 0.85rem;
+.cl-company {
+  font-size: 0.82rem;
   color: #7dd3fc;
-  margin: 0 0 0.8rem;
+  margin: 0 0 0.7rem;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
 }
 
-.stop-desc {
-  font-size: 0.875rem;
+.cl-desc {
+  font-size: 0.855rem;
   color: #cbd5f5;
   line-height: 1.6;
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.8rem;
 }
 
-.stop-achievements {
+.cl-achievements {
   list-style: none;
   padding: 0;
-  margin: 0 0 1rem;
+  margin: 0 0 0.9rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.38rem;
 }
 
-.stop-achievements li {
+.cl-achievements li {
   display: flex;
   align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.82rem;
+  gap: 0.45rem;
+  font-size: 0.815rem;
   color: #d1d5db;
   line-height: 1.4;
 }
 
-.stop-achievements li i {
+.cl-achievements li i {
   color: #38bdf8;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   margin-top: 0.2rem;
   flex-shrink: 0;
 }
 
-.stop-stack {
+.cl-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.1rem;
+  gap: 0.38rem;
 }
 
-.stop-stack span {
-  font-size: 0.72rem;
-  padding: 0.25rem 0.6rem;
+.cl-stack span {
+  font-size: 0.7rem;
+  padding: 0.22rem 0.55rem;
   border-radius: 999px;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #7dd3fc;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-
-/* ---- Certificate inside card ---- */
-.stop-cert {
-  display: flex;
-  gap: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(56, 189, 248, 0.15);
-  align-items: flex-start;
-}
-
-.cert-card-small {
-  width: 80px;
-  height: 58px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  position: relative;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
-.cert-img-small {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease, filter 0.3s ease;
-  filter: brightness(0.85);
-}
-
-.cert-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(14, 165, 233, 0.75);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  font-size: 0.55rem;
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-  padding: 4px;
-}
-
-.cert-overlay i {
-  font-size: 1rem;
-}
-
-.cert-card-small:hover .cert-overlay {
-  opacity: 1;
-}
-
-.cert-card-small:hover .cert-img-small {
-  transform: scale(1.05);
-  filter: brightness(1);
-}
-
-.cert-info {
-  flex: 1;
-}
-
-.cert-title-text {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #e5e7eb;
-  margin: 0 0 0.15rem;
-}
-
-.cert-sub {
-  font-size: 0.75rem;
-  color: #7dd3fc;
-  margin: 0 0 0.15rem;
-}
-
-.cert-issued {
-  font-size: 0.72rem;
-  color: #9ca3af;
-  margin: 0 0 0.1rem;
-}
-
-.cert-signed {
-  font-size: 0.68rem;
-  color: #6b7280;
-  margin: 0;
-  font-style: italic;
-}
-
-/* =============================================
-   LEADERSHIP BOOTCAMP IMAGE
-   ============================================= */
-
-.leadership-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.leadership-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-  color: #0b1120;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  padding: 0.28rem 0.7rem;
-  border-radius: 999px;
-  width: fit-content;
-  margin-bottom: 0.7rem;
-}
-
-.leadership-evidence {
-  display: flex;
-  gap: 0.9rem;
-  align-items: flex-start;
-  padding-top: 1rem;
-  margin-top: 0.75rem;
-  border-top: 1px solid rgba(56, 189, 248, 0.15);
-}
-
-/* Image thumbnail — same proportional role as cert-card-small */
-.bootcamp-img-wrap {
-  position: relative;
-  width: 120px;           /* slightly wider than cert because 16:9 */
-  height: 68px;           /* maintains ~16:9 ratio at this size */
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  flex-shrink: 0;
-  cursor: pointer;
-  background: #0b1120;
-}
-
-.bootcamp-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;   /* crop to show presentation area, not top nav */
-  transition: transform 0.4s ease, filter 0.3s ease;
-  filter: brightness(0.82);
-}
-
-.bootcamp-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(14, 165, 233, 0.78);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  font-size: 0.55rem;
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-  padding: 4px;
-}
-
-.bootcamp-overlay i {
-  font-size: 1.1rem;
-}
-
-.bootcamp-img-wrap:hover .bootcamp-overlay {
-  opacity: 1;
-}
-
-.bootcamp-img-wrap:hover .bootcamp-img {
-  transform: scale(1.06);
-  filter: brightness(1);
-}
-
-/* GDSC chip badge on thumbnail */
-.bootcamp-chip {
-  position: absolute;
-  bottom: 4px;
-  left: 4px;
-  font-size: 0.55rem;
-  font-weight: 600;
-  color: #fff;
-  background: rgba(10, 10, 10, 0.75);
-  border-radius: 4px;
-  padding: 2px 5px;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  backdrop-filter: blur(4px);
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.bootcamp-img-wrap:hover .bootcamp-chip {
-  opacity: 0;
-}
-
-/* Caption text — same role as cert-info */
-.bootcamp-caption {
-  flex: 1;
-}
-
-.bootcamp-caption-title {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #e5e7eb;
-  margin: 0 0 0.15rem;
-}
-
-.bootcamp-caption-sub {
-  font-size: 0.75rem;
-  color: #7dd3fc;
-  margin: 0 0 0.15rem;
-}
-
-.bootcamp-caption-meta {
-  font-size: 0.68rem;
-  color: #6b7280;
-  margin: 0;
-  font-style: italic;
-}
-
-/* ---- Road milestone marker ---- */
-.road-milestone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0;
-  position: relative;
-  z-index: 4;
-}
-
-.milestone-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: rgba(56, 189, 248, 0.3);
-  border: 2px solid rgba(56, 189, 248, 0.5);
-  position: relative;
-  animation: milestonePulse 3s infinite ease-in-out;
-}
-
-@keyframes milestonePulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(56,189,248,0); }
-}
-
-.milestone-label {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #4b5563;
-  font-weight: 500;
-}
-
-/* The central vertical road between stops */
-.roadmap-stop + .road-milestone,
-.roadmap-origin + .road-track,
-.road-track + .roadmap-stop,
-.roadmap-stop + .road-milestone + .roadmap-stop,
-.roadmap-stop + .roadmap-end {
-  position: relative;
-}
-
-/* Continuous line behind everything */
-.roadmap::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 56px;
-  transform: translateX(-50%);
-  width: 2px;
-  height: calc(100% - 100px);
-  background: linear-gradient(180deg,
-    #38bdf8 0%,
-    rgba(56,189,248,0.4) 40%,
-    rgba(6,182,212,0.4) 70%,
-    rgba(6,182,212,0.1) 100%
-  );
-  z-index: 1;
-}
-
-/* ---- End node ---- */
-.roadmap-end {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  margin-top: 1rem;
-  z-index: 5;
-}
-
-.end-pulse {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #38bdf8, #06b6d4);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
-  animation: endPulse 2s infinite ease-in-out;
-}
-
-.end-ring {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid rgba(56,189,248,0.5);
-  animation: endRing 2s infinite ease-out;
-}
-
-@keyframes endPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); box-shadow: 0 0 24px rgba(56, 189, 248, 0.7); }
-}
-@keyframes endRing {
-  0% { transform: translateX(-50%) scale(1); opacity: 0.7; }
-  100% { transform: translateX(-50%) scale(2.5); opacity: 0; }
-}
-
-.end-label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.78rem;
-  color: #38bdf8;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  padding: 0.35rem 0.9rem;
   background: rgba(56, 189, 248, 0.08);
   border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+  font-weight: 500;
+}
+
+/* ── End marker ── */
+.cl-end {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-left: 13px;
+  margin-top: -0.2rem;
+}
+
+.cl-end-dot {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.cl-end-dot::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #38bdf8, #06b6d4);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.cl-end-ping {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(56, 189, 248, 0.4);
+  animation: clRing 2s infinite ease-out;
+}
+
+.cl-end-label {
+  font-size: 0.76rem;
+  color: #38bdf8;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.85rem;
+  background: rgba(56, 189, 248, 0.07);
+  border: 1px solid rgba(56, 189, 248, 0.22);
   border-radius: 999px;
-  animation: labelGlow 3s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  animation: endLabelGlow 3s infinite ease-in-out;
 }
 
-@keyframes labelGlow {
+@keyframes endLabelGlow {
   0%, 100% { box-shadow: none; }
-  50% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.3); }
+  50%       { box-shadow: 0 0 12px rgba(56, 189, 248, 0.28); }
 }
 
-/* ======= ROADMAP RESPONSIVE ======= */
-@media (max-width: 820px) {
-  .roadmap::before { display: none; }
-
-  .roadmap-stop.stop-left,
-  .roadmap-stop.stop-right {
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5rem 0;
-  }
-
-  .stop-connector,
-  .connector-right {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .connector-line {
-    width: 2px;
-    height: 32px;
-    background: linear-gradient(180deg, rgba(56,189,248,0.2), #38bdf8);
-  }
-
-  .connector-right .connector-line {
-    background: linear-gradient(180deg, #38bdf8, rgba(56,189,248,0.2));
-  }
-
-  .stop-card {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .road-track { height: 40px; }
-  .road-milestone { padding: 0; }
+/* ── Responsive ── */
+@media (max-width: 680px) {
+  .cl-cards { flex-direction: column; }
+  .cl-card-img { width: 100%; }
+  .cl-img-wrap { aspect-ratio: 16 / 9; }
 }
 
-/* Old timeline styles kept for backward compat - hidden */
-.timeline { display: none; }
-.timeline-item { display: none; }
-.certificate-preview { display: none; }
-.cert-thumb { display: none; }
+@media (max-width: 420px) {
+  .cl-spine { width: 28px; }
+  .cl-card { padding: 1rem; }
+}
 
 /* Projects */
 .projects-grid {
